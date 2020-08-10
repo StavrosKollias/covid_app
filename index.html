@@ -18,32 +18,32 @@
         <div class="sidebar-btn" onclick="handleClickSideBarBtn(this)">
           <div class="btn-item"></div>
         </div>
-        <div class="side-bar-item">
+        <button class="side-bar-item">
           <i class="fa fa-pencil"></i>
-        </div>
-        <div class="side-bar-item">
+        </button>
+        <button class="side-bar-item">
           <i class="fa fa-area-chart" aria-hidden="true"></i>
-        </div>
-        <div class="side-bar-item">
+        </button>
+        <button class="side-bar-item">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
-        </div>
-        <div class="side-bar-item">
+        </button>
+        <button class="side-bar-item">
           <i class="fa fa-save"></i>
-        </div>
-        <div class="side-bar-item">
+        </button>
+        <button class="side-bar-item">
           <i class="fa fa-bar-chart" aria-hidden="true"></i>
-        </div>
-        <div class="side-bar-item">
+        </button>
+        <button class="side-bar-item">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
-        </div>
+        </button>
       </div>
 
       <div class="charts-container">
-        <div class="charts-controls">
-          <button>control 1</button>
-          <button>control 2</button>
-          <button>control 3</button>
-          <button>control 4</button>
+        <div class="charts-controls-container">
+          <button class="blue-btn">control 1</button>
+          <button class="green-btn">control 2</button>
+          <button class="red-btn">control 3</button>
+          <button class="blue-btn">control 4</button>
         </div>
         <div class="chart-item">
           <legend>World Wide</legend>
@@ -55,17 +55,12 @@
           <div class="charts-controls">
             <div class="input-filter-container">
               <label for="country">*Select Country</label>
-              <select name="by-country" id="by-country" class="input-filter">
-                <option value="0">Greece</option>
-                <option value="1">United Kingdom</option>
-                <option value="2">United States</option>
-                <option value="3">Australia</option>
-                <option value="4">All</option>
+              <select name="by-country" class="input-filter country-selector">
               </select>
             </div>
             <div class="input-filter-container">
               <label for="country">*Type</label>
-              <select name="by-country" id="by-country" class="input-filter">
+              <select name="by-country" class="input-filter type-selector">
                 <option value="0">New Cases</option>
                 <option value="1">Deaths</option>
               </select>
@@ -79,17 +74,12 @@
           <div class="charts-controls">
             <div class="input-filter-container">
               <label for="country">*Select Country</label>
-              <select name="by-country" id="by-country" class="input-filter">
-                <option value="0">Greece</option>
-                <option value="1">United Kingdom</option>
-                <option value="2">United States</option>
-                <option value="3">Australia</option>
-                <option value="4">All</option>
+              <select name="by-country" class="input-filter country-selector">
               </select>
             </div>
             <div class="input-filter-container">
               <label for="country">*Type</label>
-              <select name="by-country" id="by-country" class="input-filter">
+              <select name="by-country" class="input-filter type-selector">
                 <option value="0">New Cases</option>
                 <option value="1">Deaths</option>
               </select>

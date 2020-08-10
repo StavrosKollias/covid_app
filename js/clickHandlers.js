@@ -30,3 +30,8 @@ function forEachInNodeListClass(list, operationFunction, className) {
     operationFunction(e, className);
   });
 }
+
+window.addEventListener("load", (e) => {
+  const selectFiltersCountry = document.querySelectorAll(".country-selector");
+  const data = getDataCallApi("GET", "https://api.covid19api.com/summary");
+});
