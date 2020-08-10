@@ -175,12 +175,12 @@ button:focus {
 }
 
 .side-bar-item {
+  flex: 1.2;
   font-size: 1em;
   visibility: hidden;
   opacity: 0;
   color: var(--white);
   transition: all 0.25s ease-in-out;
-  margin-top: 4em;
 }
 
 .side-bar-item:hover {
