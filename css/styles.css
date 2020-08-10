@@ -1,0 +1,173 @@
+:root {
+  --white: white;
+  --blue: #2a2aac;
+  --red: #c02525;
+  --blackGray: #292828;
+  --gray: #808080;
+  --green: #008000;
+  --transparent: #11111100;
+}
+
+/* -------------------------------- */
+/* ---------general prefixes------- */
+/* -------------------------------- */
+
+html {
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+}
+
+legend {
+  font-size: 1.5em;
+}
+
+label {
+  font-size: 0.8em;
+}
+
+input,
+select {
+  font-size: 0.8em;
+  border: none;
+  padding: 0.2em;
+  transition: all 0.25s ease-in-out;
+  border: none;
+  display: block;
+}
+
+button {
+  border: none;
+  padding: 1em;
+  transition: all 0.25s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0.2em var(--blackGray);
+}
+
+select:focus,
+input:focus,
+button:focus {
+  outline: none;
+  border-bottom: 1px solid green;
+}
+
+/* -------------------------------- */
+/* ---------------Classes -------- */
+/* -------------------------------- */
+
+.panel-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.side-bar {
+  width: 2em;
+  background-color: var(--blackGray);
+  transition: all 0.15s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.active-side-bar {
+  width: 6em;
+  height: 100%;
+}
+
+.sidebar-btn {
+  position: relative;
+  width: 1.5em;
+  height: 2.5em;
+}
+
+.sidebar-btn:hover {
+  cursor: pointer;
+}
+
+.btn-item {
+  position: absolute;
+  transform-origin: 50% 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.5em;
+  height: 0.3em;
+  background-color: var(--white);
+}
+
+.btn-item::after {
+  content: "";
+  position: absolute;
+  width: 1.5em;
+  height: 0.3em;
+  background-color: var(--white);
+  top: 0.5em;
+}
+
+.btn-item::before {
+  content: "";
+  position: absolute;
+  width: 1.5em;
+  height: 0.3em;
+  background-color: var(--white);
+  top: -0.5em;
+}
+
+.btn-item-active {
+  background-color: var(--transparent);
+}
+
+.btn-item-active:before {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.btn-item-active:after {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.side-bar-item {
+  visibility: hidden;
+  opacity: 0;
+  color: var(--white);
+  transition: all 0.25s ease-in-out;
+}
+
+.side-bar-item:hover {
+  cursor: pointer;
+}
+
+.active-item {
+  visibility: visible;
+  opacity: 1;
+}
+
+.charts-container {
+  width: calc(100% - 1rem);
+  height: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.charts-controls {
+  width: calc(100% - 2 * 1em);
+  padding: 1em;
+}
+
+.chart-item {
+  width: calc(100% - 2 * 1em);
+  padding: 1em;
+  min-height: 10em;
+}
+
+.input-filter-container {
+  display: inline-block;
+}

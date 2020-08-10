@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="./lib/jquery-3.2.1.min.js"></script>
+    <script src="./lib/Chart_2_8.min.js"></script>
+    <title>Covid App</title>
+  </head>
+  <body>
+    <div class="panel-container">
+      <div class="side-bar">
+        <div class="sidebar-btn" onclick="handleClickSideBarBtn(this)">
+          <div class="btn-item"></div>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-pencil"></i>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-area-chart" aria-hidden="true"></i>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-save"></i>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        </div>
+        <div class="side-bar-item">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="charts-container">
+        <div class="charts-controls">
+          <button>control 1</button>
+          <button>control 2</button>
+          <button>control 3</button>
+          <button>control 4</button>
+        </div>
+        <div class="chart-item">
+          <legend>World Wide</legend>
+
+          I am chart
+        </div>
+        <div class="chart-item">
+          <legend>By Country</legend>
+          <div class="charts-controls">
+            <div class="input-filter-container">
+              <label for="country">*Select Country</label>
+              <select name="by-country" id="by-country" class="input-filter">
+                <option value="0">Greece</option>
+                <option value="1">United Kingdom</option>
+                <option value="2">United States</option>
+                <option value="3">Australia</option>
+                <option value="4">All</option>
+              </select>
+            </div>
+            <div class="input-filter-container">
+              <label for="country">*Type</label>
+              <select name="by-country" id="by-country" class="input-filter">
+                <option value="0">New Cases</option>
+                <option value="1">Deaths</option>
+              </select>
+            </div>
+          </div>
+          I am chart
+        </div>
+        <div class="chart-item">
+          <legend>Statistics</legend>
+
+          <div class="charts-controls">
+            <div class="input-filter-container">
+              <label for="country">*Select Country</label>
+              <select name="by-country" id="by-country" class="input-filter">
+                <option value="0">Greece</option>
+                <option value="1">United Kingdom</option>
+                <option value="2">United States</option>
+                <option value="3">Australia</option>
+                <option value="4">All</option>
+              </select>
+            </div>
+            <div class="input-filter-container">
+              <label for="country">*Type</label>
+              <select name="by-country" id="by-country" class="input-filter">
+                <option value="0">New Cases</option>
+                <option value="1">Deaths</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/functions.js"></script>
+  <script src="./js/clickHandlers.js"></script>
+</html>
