@@ -231,6 +231,9 @@ button:focus {
   font-weight: 500;
 }
 
+.result-item label {
+  font-weight: 700;
+}
 .result-item span {
   font-weight: normal;
 }

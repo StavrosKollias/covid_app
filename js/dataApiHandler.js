@@ -26,8 +26,9 @@ function getGlobalTotalData() {
     "GET",
     "https://api.covid19api.com/summary"
   ).then((data) => {
-    console.log(data.Global);
-    const dataGlobalInTotal = data.Global;
+    // console.log(data.Global);
+    // const dataGlobalInTotal = data.Global;
+    addDataToGlobalResultSpans(data.Global);
     console.log(data.Date);
     const dataGlobalDate = data.Date;
     // console.log(data.Countries);
@@ -42,6 +43,21 @@ function getGlobalTotalData() {
 // TotalConfirmed: 20088890
 // TotalDeaths: 736223
 // TotalRecovered: 12279869
+
+function addDataToGlobalResultSpans(data) {
+  const newConfrimedSpan = document.getElementById("new-confirmed-global");
+  const newDeathsSpan = document.getElementById("new-deaths-global");
+  const newRecoveredSpan = document.getElementById("new-recovered-global");
+  const totalConfirmedSpan = document.getElementById("total-confirmed-global");
+  const totalDeathsSpan = document.getElementById("total-deaths-global");
+  const totalRecoveredSpan = document.getElementById("total-recovered-global");
+  changeTextToElement(newConfrimedSpan, data.NewConfirmed);
+  changeTextToElement(newDeathsSpan, data.NewDeaths);
+  changeTextToElement(newRecoveredSpan, data.NewRecovered);
+  changeTextToElement(totalConfirmedSpan, data.TotalConfirmed);
+  changeTextToElement(totalDeathsSpan, data.TotalDeaths);
+  changeTextToElement(totalRecoveredSpan, data.TotalRecovered);
+}
 // -----------Country Global Example----//
 //     Country: "Afghanistan"
 // CountryCode: "AF"
