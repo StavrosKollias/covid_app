@@ -32,6 +32,22 @@ function forEachInNodeListClass(list, operationFunction, className) {
 }
 
 window.addEventListener("load", (e) => {
-  const selectFiltersCountry = document.querySelectorAll(".country-selector");
-  const data = getDataCallApi("GET", "https://api.covid19api.com/summary");
+  const countriesApi = getDataCallApi(
+    "GET",
+    "https://api.covid19api.com/countries"
+  ).then((data) => addCountriesToSelections(data));
 });
+
+function addCountriesToSelectionBox(data) {
+  const selectFiltersCountry = document.querySelectorAll(".country-selector");
+  selectFiltersCountry.forEach((e, i) => {
+    data.map((item, i) => {
+      const newOption = document
+        .querySelectorAll(".type-selector")[0]
+        .children[0].cloneNode(true);
+      changeTextToElement(newOption, item.Country);
+      newOption.value = i;
+      addChildToElement(e, newOption);
+    });
+  });
+}
