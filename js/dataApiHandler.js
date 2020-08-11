@@ -51,13 +51,26 @@ function addDataToGlobalResultSpans(data) {
   const totalConfirmedSpan = document.getElementById("total-confirmed-global");
   const totalDeathsSpan = document.getElementById("total-deaths-global");
   const totalRecoveredSpan = document.getElementById("total-recovered-global");
-  changeTextToElement(newConfrimedSpan, data.NewConfirmed);
-  changeTextToElement(newDeathsSpan, data.NewDeaths);
-  changeTextToElement(newRecoveredSpan, data.NewRecovered);
-  changeTextToElement(totalConfirmedSpan, data.TotalConfirmed);
-  changeTextToElement(totalDeathsSpan, data.TotalDeaths);
-  changeTextToElement(totalRecoveredSpan, data.TotalRecovered);
+
+  const newConfirmed = numberWithCommas(data.NewConfirmed);
+  const newDeaths = numberWithCommas(data.NewDeaths);
+  const newRecovered = numberWithCommas(data.NewRecovered);
+  const totalConfirmed = numberWithCommas(data.TotalConfirmed);
+  const totalDeaths = numberWithCommas(data.TotalDeaths);
+  const totalRecovered = numberWithCommas(data.TotalRecovered);
+
+  changeTextToElement(newConfrimedSpan, newConfirmed);
+  changeTextToElement(newDeathsSpan, newDeaths);
+  changeTextToElement(newRecoveredSpan, newRecovered);
+  changeTextToElement(totalConfirmedSpan, totalConfirmed);
+  changeTextToElement(totalDeathsSpan, totalDeaths);
+  changeTextToElement(totalRecoveredSpan, totalRecovered);
 }
+
+// function numberWithCommas(x) {
+//   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+// }
+
 // -----------Country Global Example----//
 //     Country: "Afghanistan"
 // CountryCode: "AF"

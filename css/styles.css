@@ -1,5 +1,5 @@
 :root {
-  --white: white;
+  --white: #ffffff;
   --blue: #2a2aac;
   --red: #c02525;
   --blackGray: #292828;
@@ -9,7 +9,7 @@
 }
 
 /* -------------------------------- */
-/* ---------general prefixes------- */
+/* ---------General prefixes------- */
 /* -------------------------------- */
 
 html {
@@ -24,7 +24,8 @@ legend {
   font-size: 1.5em;
 }
 
-label {
+label,
+span {
   font-size: 0.8em;
 }
 
@@ -233,6 +234,7 @@ button:focus {
 
 .result-item label {
   font-weight: 700;
+  display: block;
 }
 .result-item span {
   font-weight: normal;

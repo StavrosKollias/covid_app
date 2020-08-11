@@ -83,8 +83,29 @@
         </div>
         <div class="chart-item">
           <legend>World Wide</legend>
+          <div class="charts-controls">
+            <div class="input-filter-container">
+              <label for="country">*Select Country</label>
+              <select name="by-country" class="input-filter country-selector">
+              </select>
+            </div>
+            <div class="input-filter-container">
+              <label for="country">*Type</label>
+              <select name="by-country" class="input-filter type-selector">
+                <option value="0">New Cases</option>
+                <option value="1">Deaths</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-item-charts">
+            <div class="canvas-container">
+              <canvas id="total-global-stats"></canvas>
+            </div>
 
-          I am chart
+            <div class="canvas-container">
+              <canvas id="new-global-stats"></canvas>
+            </div>
+          </div>
         </div>
         <div class="chart-item">
           <legend>By Country</legend>
