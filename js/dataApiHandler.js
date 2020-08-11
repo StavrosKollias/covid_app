@@ -1,11 +1,15 @@
 window.addEventListener("load", (e) => {
+  getCountriesData();
+
+  getGlobalTotalData();
+});
+
+function getCountriesData() {
   const countriesApi = getDataCallApi(
     "GET",
     "https://api.covid19api.com/countries"
   ).then((data) => addCountriesToSelectionBox(data));
-
-  getGlobalTotalData();
-});
+}
 
 function addCountriesToSelectionBox(data) {
   const selectFiltersCountry = document.querySelectorAll(".country-selector");
@@ -26,10 +30,9 @@ function getGlobalTotalData() {
     "GET",
     "https://api.covid19api.com/summary"
   ).then((data) => {
-    // console.log(data.Global);
-    // const dataGlobalInTotal = data.Global;
     addDataToGlobalResultSpans(data.Global);
-    console.log(data.Date);
+    generateGlobalChartTotal(data.Global);
+    // console.log(data.Date);
     const dataGlobalDate = data.Date;
     // console.log(data.Countries);
     const dataGlobalbyCountries = data.Countries;
@@ -67,9 +70,31 @@ function addDataToGlobalResultSpans(data) {
   changeTextToElement(totalRecoveredSpan, totalRecovered);
 }
 
-// function numberWithCommas(x) {
-//   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-// }
+function generateGlobalChartTotal(data) {
+  const totalGlobalChart = document.getElementById("total-global-stats");
+  const options = chartOptions("Number Cases", "Type");
+  const labels = ["Confirmed", "Deaths", "Recovered"];
+  const dataset1 = new Dataset(
+    "Total GLobaly",
+    [data.TotalConfirmed, data.TotalDeaths, data.TotalRecovered],
+    "bar",
+    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"],
+    0.5,
+    true,
+    true,
+    false,
+    0,
+    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"],
+    1,
+    "default",
+    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"]
+  );
+
+  // data.TotalDeaths,
+  // console.log(dataset);
+  const chartData = generateChartData(labels, [dataset1]);
+  const chart = generateChart("bar", totalGlobalChart, chartData, options);
+}
 
 // -----------Country Global Example----//
 //     Country: "Afghanistan"

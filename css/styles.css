@@ -225,11 +225,13 @@ button:focus {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  justify-content: space-around;
 }
 
 .result-item {
   padding: 1em;
   font-weight: 500;
+  box-shadow: 0 0 0.2em var(--blue);
 }
 
 .result-item label {

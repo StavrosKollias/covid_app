@@ -64,7 +64,7 @@ function chartOptions(yAxisLabel, xAxisLabel) {
     legend: {
       display: true,
       labels: {
-        fontColor: "#e9e9e9",
+        fontColor: "#0A0A23",
       },
       onClick: (e) => e.stopPropagation(),
     },
@@ -74,14 +74,14 @@ function chartOptions(yAxisLabel, xAxisLabel) {
           scaleLabel: {
             display: true,
             labelString: xAxisLabel,
-            fontColor: "#e9e9e9",
+            fontColor: "#0A0A23",
           },
           gridLines: {
             display: false,
           },
           ticks: {
             fontSize: 15,
-            fontColor: "#e9e9e9", // this here
+            fontColor: "#0A0A23", // this here
           },
         },
       ],
@@ -90,7 +90,7 @@ function chartOptions(yAxisLabel, xAxisLabel) {
           scaleLabel: {
             display: true,
             labelString: yAxisLabel,
-            fontColor: "#0000",
+            fontColor: "#0A0A23",
           },
           display: true,
           gridLines: {
@@ -98,7 +98,7 @@ function chartOptions(yAxisLabel, xAxisLabel) {
           },
           ticks: {
             fontSize: 15,
-            fontColor: "#0000", // this here
+            fontColor: "#0A0A23", // this here
             beginAtZero: false,
           },
         },
