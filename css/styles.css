@@ -219,3 +219,18 @@ button:focus {
 .input-filter-container {
   display: inline-block;
 }
+
+.results-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.result-item {
+  padding: 1em;
+  font-weight: 500;
+}
+
+.result-item span {
+  font-weight: normal;
+}
