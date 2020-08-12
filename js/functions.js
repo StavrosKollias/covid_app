@@ -37,6 +37,7 @@ function generateChart(type, canvas, data, options) {
     data: data,
     options: options,
   });
+  addClickHandlerToChartData(canvas, chart);
   return chart;
 }
 
@@ -188,34 +189,24 @@ function generateChartData(labels, datasets) {
   return chartData;
 }
 
-class Dataset {
-  constructor(
-    label,
-    data,
-    type,
-    borderColor,
-    fillOpacity,
-    steppedLine,
-    showLine,
-    fill,
-    pointRadius,
-    pointBorderColor,
-    pointBorderWidth,
-    cubicInterpolationMode,
-    backgroundColor
-  ) {
-    this.label = label;
-    this.data = data;
-    this.type = type;
-    this.borderColor = borderColor;
-    this.fillOpacity = fillOpacity;
-    this.steppedLine = steppedLine;
-    this.showLine = showLine;
-    this.fill = fill;
-    this.pointRadius = pointRadius;
-    this.pointBorderColor = pointBorderColor;
-    this.pointBorderWidth = pointBorderWidth;
-    this.cubicInterpolationMode = cubicInterpolationMode;
-    this.backgroundColor = backgroundColor;
-  }
+function addClickHandlerToChartData(element, chart) {
+  element.onclick = function (evt) {
+    var activePoints = chart.getElementsAtEvent(evt);
+    if (activePoints[0]) {
+      var chartData = activePoints[0]["_chart"].config.data;
+      var idx = activePoints[0]["_index"];
+
+      var label = chartData.labels[idx];
+      var value = chartData.datasets[0].data[idx];
+
+      var url = "http://example.com/?label=" + label + "&value=" + value;
+      console.log(url);
+    }
+  };
+}
+
+function updateChart(chart, data, labels) {
+  chart.data.labels = labels;
+  chart.data.datasets = data;
+  chart.update();
 }

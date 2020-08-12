@@ -75,7 +75,7 @@ function generateGlobalChartTotal(data, date) {
   const totalGlobalChart = document.getElementById("total-global-stats");
   const options = chartOptions("Number Cases", "Type");
   const labels = ["Confirmed", "Deaths", "Recovered"];
-  const dataset1 = new Dataset(
+  const dataset = new Dataset(
     `Total GLobaly ${date}`,
     [data.TotalConfirmed, data.TotalDeaths, data.TotalRecovered],
     "bar",
@@ -102,7 +102,7 @@ function generateGlobalChartTotal(data, date) {
       "rgba(153, 102, 255, 0.2)",
     ]
   );
-  const chartData = generateChartData(labels, [dataset1]);
+  const chartData = generateChartData(labels, [dataset]);
   const chart = generateChart("bar", totalGlobalChart, chartData, options);
 }
 

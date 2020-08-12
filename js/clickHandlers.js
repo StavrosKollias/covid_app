@@ -44,7 +44,7 @@ function handleFilterCountryGlobalChart(element) {
   // const chart = document.getElementById("total-global-stats");
   // console.log(chart.getContext("2d"));
 
-  getSummuryDataFilter(filterCountryName);
+  getSummuryDataFilter(filterCountryName, "total-global-stats");
 }
 
 function filterDataGlobalTotalByCountry(data, filterCountryName) {
@@ -56,7 +56,7 @@ function filterDataGlobalTotalByCountry(data, filterCountryName) {
   return result;
 }
 
-function getSummuryDataFilter(filterCountryName) {
+function getSummuryDataFilter(filterCountryName, idCanvas) {
   const summaryWorld = getDataCallApi(
     "GET",
     "https://api.covid19api.com/summary"
@@ -66,11 +66,61 @@ function getSummuryDataFilter(filterCountryName) {
       filterCountryName
     );
 
-    updateGlobalTotalChart(filteredData);
+    updateGlobalTotalChart(filteredData, idCanvas);
   });
 }
 
-function updateGlobalTotalChart(filteredData) {
-  const chartCanvas = document.getElementById("total-global-stats");
-  console.log(chartCanvas.getContext("2d"));
+function updateGlobalTotalChart(filteredData, idCanvas) {
+  Object.filter = (obj, predicate) =>
+    Object.fromEntries(Object.entries(obj).filter(predicate));
+
+  const chartCanvas = Object.filter(Chart.instances, function (instance) {
+    return instance[1].chart.canvas.id === idCanvas;
+  });
+
+  // Chart.helpers.filter(Chart.instances, function (
+  //   instance
+  // ) {
+  //   return instance.chart.canvas.id === idCanvas;
+  // });
+
+  console.log(filteredData[0]);
+  // + filteredData[0].Country + " At" + filteredData[0].Date
+  if (filteredData.length > 0) {
+    const dataset = new Dataset(
+      "Total ",
+      [
+        filteredData[0].TotalConfirmed,
+        filteredData[0].TotalDeaths,
+        filteredData[0].TotalRecovered,
+      ],
+      "bar",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      0.5,
+      true,
+      true,
+      false,
+      0,
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      1,
+      "default",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ]
+    );
+    const labels = ["Confirmed", "Deaths", "Recovered"];
+    updateChart(chartCanvas[0].chart, dataset, labels);
+  } else {
+    alert("No Data for Country Selected");
+  }
 }
