@@ -158,14 +158,6 @@ function updateChart(chart, data, labels) {
 // -----------------------------------------//
 // -----------Focused Functions-------------//
 //------------------------------------------//
-function filterDataGlobalTotalByCountry(data, filterCountryName) {
-  const countries = data.Countries;
-  const result = countries.filter(function (item) {
-    return item.Country === filterCountryName;
-  });
-
-  return result[0];
-}
 
 function getSummuryDataFilterCountry(filterCountryName) {
   const summaryWorld = getDataCallApi(
@@ -180,6 +172,15 @@ function getSummuryDataFilterCountry(filterCountryName) {
     updateGlobalChart(filteredData, "total-global-stats");
     updateGlobalChart(filteredData, "new-global-stats");
   });
+}
+
+function filterDataGlobalTotalByCountry(data, filterCountryName) {
+  const countries = data.Countries;
+  const result = countries.filter(function (item) {
+    return item.Country === filterCountryName;
+  });
+
+  return result[0];
 }
 
 function getSummuryData() {

@@ -40,20 +40,9 @@ function getGlobalTotalDataInitial() {
     addDataToGlobalResultSpans(data.Global);
     generateGlobalChartTotal(data.Global, dataGlobalDate);
     generateGlobalChartNew(data.Global, dataGlobalDate);
-    // console.log(data.Date);
-
-    // console.log(data.Countries);
-    const dataGlobalbyCountries = data.Countries;
+    // const dataGlobalbyCountries = data.Countries;
   });
 }
-
-// ----------Data Global in Total---------//
-// NewConfirmed: 227941
-// NewDeaths: 4913
-// NewRecovered: 164695
-// TotalConfirmed: 20088890
-// TotalDeaths: 736223
-// TotalRecovered: 12279869
 
 function addDataToGlobalResultSpans(data) {
   const newConfrimedSpan = document.getElementById("new-confirmed-global");
