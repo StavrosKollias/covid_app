@@ -33,6 +33,14 @@ function sortAplhabeticallyCountries(data) {
 Object.filter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
 
+function checkDateUndifined(date) {
+  return date === undefined;
+}
+
+function checkCountryNameUndefined(country) {
+  return country === undefined;
+}
+
 // ----------Generating Chart Functions --------//
 function generateChart(type, canvas, data, options) {
   var chart = new Chart(canvas, {
@@ -142,7 +150,14 @@ function addClickHandlerToChartData(element, chart) {
   };
 }
 
+function updateChart(chart, data, labels) {
+  chart.data.labels = labels;
+  chart.data.datasets[0] = data;
+  chart.update();
+}
+// -----------------------------------------//
 // -----------Focused Functions-------------//
+//------------------------------------------//
 function filterDataGlobalTotalByCountry(data, filterCountryName) {
   const countries = data.Countries;
   const result = countries.filter(function (item) {
@@ -152,7 +167,7 @@ function filterDataGlobalTotalByCountry(data, filterCountryName) {
   return result[0];
 }
 
-function getSummuryDataFilterCountry(filterCountryName, idCanvas) {
+function getSummuryDataFilterCountry(filterCountryName) {
   const summaryWorld = getDataCallApi(
     "GET",
     "https://api.covid19api.com/summary"
@@ -162,61 +177,111 @@ function getSummuryDataFilterCountry(filterCountryName, idCanvas) {
       filterCountryName
     );
 
-    updateGlobalTotalChart(filteredData, idCanvas);
+    updateGlobalChart(filteredData, "total-global-stats");
+    updateGlobalChart(filteredData, "new-global-stats");
   });
 }
 
-function getSummuryData(idCanvas) {
+function getSummuryData() {
   const summaryWorld = getDataCallApi(
     "GET",
     "https://api.covid19api.com/summary"
   ).then((data) => {
     const filteredData = data.Global;
     const date = data.Date;
-    updateGlobalTotalChart(filteredData, idCanvas, date);
+    updateGlobalChart(filteredData, "total-global-stats", date);
+    updateGlobalChart(filteredData, "new-global-stats", date);
   });
 }
 
-function updateGlobalTotalChart(filteredData, idCanvas, date) {
-  const chartCanvas = Object.filter(Chart.instances, function (instance) {
-    return instance[1].chart.canvas.id === idCanvas;
-  });
-  var country = filteredData.Country;
-  var newdate = date;
-  newdate == undefined ? (newdate = filteredData.Date) : newdate;
-  country == undefined ? (country = "Global") : country;
+function updateGlobalChart(filteredData, idCanvas, date) {
+  var chartCanvas;
 
-  const dataset = new Dataset(
-    "Total " + country + " " + newdate,
-    [
-      filteredData.TotalConfirmed,
-      filteredData.TotalDeaths,
-      filteredData.TotalRecovered,
-    ],
-    "bar",
-    [
-      "rgba(255, 206, 86, 0.2)",
-      "rgba(75, 192, 192, 0.2)",
-      "rgba(153, 102, 255, 0.2)",
-    ],
-    0.5,
-    true,
-    true,
-    false,
-    0,
-    [
-      "rgba(255, 206, 86, 0.2)",
-      "rgba(75, 192, 192, 0.2)",
-      "rgba(153, 102, 255, 0.2)",
-    ],
-    1,
-    "default",
-    [
-      "rgba(255, 206, 86, 0.2)",
-      "rgba(75, 192, 192, 0.2)",
-      "rgba(153, 102, 255, 0.2)",
-    ]
+  Chart.helpers.each(Chart.instances, function (instance) {
+    instance.chart.canvas.id == idCanvas
+      ? (chartCanvas = instance.chart)
+      : false;
+  });
+  var country = checkCountryNameUndefined(filteredData.Country);
+  var newDate = checkDateUndifined(date);
+  newDate ? (newDate = filteredData.Date) : newDate;
+  country ? (country = "Global") : (country = filteredData.Country);
+  const dataset = generateTypeDatasetGlobalCharts(
+    filteredData,
+    idCanvas,
+    country,
+    newDate
   );
   const labels = ["Confirmed", "Deaths", "Recovered"];
-  updateChart(chartCanvas[0].chart, dataset, labels);
+  updateChart(chartCanvas, dataset, labels);
+}
+
+function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
+  var dataset;
+  if (type == "total-global-stats") {
+    dataset = new Dataset(
+      "Total " + country + " " + newDate,
+      [
+        filteredData.TotalConfirmed,
+        filteredData.TotalDeaths,
+        filteredData.TotalRecovered,
+      ],
+      "bar",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      0.5,
+      true,
+      true,
+      false,
+      0,
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      1,
+      "default",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ]
+    );
+  } else {
+    dataset = new Dataset(
+      "New " + country + " " + newDate,
+      [
+        filteredData.NewConfirmed,
+        filteredData.NewDeaths,
+        filteredData.NewRecovered,
+      ],
+      "bar",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      0.5,
+      true,
+      true,
+      false,
+      0,
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ],
+      1,
+      "default",
+      [
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+      ]
+    );
+  }
+  return dataset;
 }

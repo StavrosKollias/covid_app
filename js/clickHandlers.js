@@ -40,14 +40,9 @@ function forEachInNodeListClass(list, operationFunction, className) {
 function handleFilterCountryGlobalChart(element) {
   const filterCountryValue = element.value;
   const filterCountryName = element.selectedOptions[0].innerText;
+
   console.log(filterCountryValue);
   filterCountryName == "Global"
-    ? getSummuryData("total-global-stats")
-    : getSummuryDataFilterCountry(filterCountryName, "total-global-stats");
-}
-
-function updateChart(chart, data, labels) {
-  chart.data.labels = labels;
-  chart.data.datasets[0] = data;
-  chart.update();
+    ? getSummuryData()
+    : getSummuryDataFilterCountry(filterCountryName);
 }
