@@ -30,6 +30,9 @@ function sortAplhabeticallyCountries(data) {
   return data.sort((a, b) => a.Country.localeCompare(b.Country));
 }
 
+Object.filter = (obj, predicate) =>
+  Object.fromEntries(Object.entries(obj).filter(predicate));
+
 // ----------Generating Chart Functions --------//
 function generateChart(type, canvas, data, options) {
   var chart = new Chart(canvas, {
@@ -117,74 +120,8 @@ function chartOptions(yAxisLabel, xAxisLabel) {
 
 function generateChartData(labels, datasets) {
   const chartData = {
-    labels: labels, //["1", "2", "3", "4", "5", "6"],
+    labels: labels,
     datasets: datasets,
-    // datasets: [
-    //   {
-    //     label: "Mean",
-    //     data: [], //[50, 50, 50, 50, 50, 50],
-    //     type: "line",
-    //     borderColor: "rgba(251, 255, 0)",
-    //     fillOpacity: 0.5,
-    //     steppedLine: true,
-    //     showLine: true,
-    //     fill: false,
-    //     pointRadius: 0,
-    //     pointBorderColor: "rgba(251, 255, 0)",
-    //     pointBorderWidth: 1,
-    //     cubicInterpolationMode: "default",
-    //     backgroundColor: "rgba(251, 255, 0)",
-    //   },
-    //   {
-    //     label: "USL",
-    //     data: [], //[50, 50, 50, 50, 50, 50],
-    //     type: "line",
-    //     borderColor: "red",
-    //     fillOpacity: 0.5,
-    //     steppedLine: true,
-    //     showLine: true,
-    //     fill: false,
-    //     pointRadius: 0,
-    //     pointBorderColor: "red",
-    //     pointBorderWidth: 1,
-    //     cubicInterpolationMode: "default",
-    //     backgroundColor: "red",
-    //   },
-    //   {
-    //     label: "LSL",
-    //     data: [],
-    //     type: "line",
-    //     borderColor: "green",
-    //     fillOpacity: 0.5,
-    //     steppedLine: true,
-    //     showLine: true,
-    //     fill: false,
-    //     pointRadius: 0,
-    //     pointBorderColor: "green",
-    //     pointBorderWidth: 1,
-    //     cubicInterpolationMode: "default",
-    //     backgroundColor: "green",
-    //   },
-    //   {
-    //     fillColor: "rgba(255, 0, 212)",
-    //     fillOpacity: 0.5,
-    //     borderColor: "rgba(255, 0, 212)",
-    //     pointBorderColor: "rgba(255, 0, 212)",
-    //     strokeColor: "rgba(255, 0, 212)",
-    //     fill: false,
-    //     borderWidth: 2,
-    //     type: "line",
-    //     steppedLine: false,
-    //     showLine: true,
-    //     pointRadius: 7,
-    //     pointBorderWidth: 1,
-    //     backgroundColor: "rgba(255, 0, 212)",
-    //     hoverBackgroundColor: "rgba(255, 0, 212)",
-    //     cubicInterpolationMode: "default",
-    //     data: [],
-    //     label: "Force Results",
-    //   },
-    // ],
   };
   return chartData;
 }
@@ -205,8 +142,81 @@ function addClickHandlerToChartData(element, chart) {
   };
 }
 
-function updateChart(chart, data, labels) {
-  chart.data.labels = labels;
-  chart.data.datasets = data;
-  chart.update();
+// -----------Focused Functions-------------//
+function filterDataGlobalTotalByCountry(data, filterCountryName) {
+  const countries = data.Countries;
+  const result = countries.filter(function (item) {
+    return item.Country === filterCountryName;
+  });
+
+  return result[0];
+}
+
+function getSummuryDataFilterCountry(filterCountryName, idCanvas) {
+  const summaryWorld = getDataCallApi(
+    "GET",
+    "https://api.covid19api.com/summary"
+  ).then((data) => {
+    const filteredData = filterDataGlobalTotalByCountry(
+      data,
+      filterCountryName
+    );
+
+    updateGlobalTotalChart(filteredData, idCanvas);
+  });
+}
+
+function getSummuryData(idCanvas) {
+  const summaryWorld = getDataCallApi(
+    "GET",
+    "https://api.covid19api.com/summary"
+  ).then((data) => {
+    const filteredData = data.Global;
+    const date = data.Date;
+    updateGlobalTotalChart(filteredData, idCanvas, date);
+  });
+}
+
+function updateGlobalTotalChart(filteredData, idCanvas, date) {
+  const chartCanvas = Object.filter(Chart.instances, function (instance) {
+    return instance[1].chart.canvas.id === idCanvas;
+  });
+  var country = filteredData.Country;
+  var newdate = date;
+  newdate == undefined ? (newdate = filteredData.Date) : newdate;
+  country == undefined ? (country = "Global") : country;
+
+  const dataset = new Dataset(
+    "Total " + country + " " + newdate,
+    [
+      filteredData.TotalConfirmed,
+      filteredData.TotalDeaths,
+      filteredData.TotalRecovered,
+    ],
+    "bar",
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
+    0.5,
+    true,
+    true,
+    false,
+    0,
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
+    1,
+    "default",
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ]
+  );
+  const labels = ["Confirmed", "Deaths", "Recovered"];
+  updateChart(chartCanvas[0].chart, dataset, labels);
 }

@@ -65,6 +65,33 @@
         </div> -->
 
         <div class="chart-item">
+          <legend>Global</legend>
+          <div class="charts-controls">
+            <div class="input-filter-container">
+              <label for="by-country">*Select Country</label>
+              <select
+                name="by-country"
+                class="input-filter country-selector"
+                onchange="handleFilterCountryGlobalChart(this)"
+              >
+              </select>
+            </div>
+          </div>
+          <div class="chart-item-charts">
+            <div class="canvas-container">
+              <canvas id="total-global-stats">
+                Your browser does not support the canvas element.</canvas
+              >
+            </div>
+
+            <div class="canvas-container">
+              <canvas id="new-global-stats"
+                >Your browser does not support the canvas element.
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class="chart-item">
           <legend>Global Results</legend>
 
           <div class="results-container">
@@ -96,31 +123,6 @@
             <div class="result-item">
               <label for="">Total Recovered:</label>
               <span id="total-recovered-global"></span>
-            </div>
-          </div>
-        </div>
-        <div class="chart-item">
-          <legend>World Wide</legend>
-          <div class="charts-controls">
-            <div class="input-filter-container">
-              <label for="by-country">*Select Country</label>
-              <select
-                name="by-country"
-                class="input-filter country-selector"
-                onchange="handleFilterCountryGlobalChart(this)"
-              >
-              </select>
-            </div>
-          </div>
-          <div class="chart-item-charts">
-            <div class="canvas-container">
-              <canvas id="total-global-stats">
-                Your browser does not support the canvas element.</canvas
-              >
-            </div>
-
-            <div class="canvas-container">
-              <canvas id="new-global-stats"> </canvas>
             </div>
           </div>
         </div>

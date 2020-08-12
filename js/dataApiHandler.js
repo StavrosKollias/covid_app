@@ -1,7 +1,6 @@
 window.addEventListener("load", (e) => {
   getCountriesData();
-
-  getGlobalTotalData();
+  getGlobalTotalDataInitial();
 });
 
 function getCountriesData() {
@@ -15,26 +14,34 @@ function addCountriesToSelectionBox(data) {
   const selectFiltersCountry = document.querySelectorAll(".country-selector");
   data = sortAplhabeticallyCountries(data);
   selectFiltersCountry.forEach((e, i) => {
+    const newOption = document
+      .querySelectorAll(".type-selector")[0]
+      .children[0].cloneNode(true);
+    changeTextToElement(newOption, "Global");
+    newOption.value = 0;
+    addChildToElement(e, newOption);
     data.map((item, i) => {
       const newOption = document
         .querySelectorAll(".type-selector")[0]
         .children[0].cloneNode(true);
       changeTextToElement(newOption, item.Country);
-      newOption.value = i;
+      newOption.value = i + 1;
       addChildToElement(e, newOption);
     });
   });
 }
 
-function getGlobalTotalData() {
+function getGlobalTotalDataInitial() {
   const summaryWorld = getDataCallApi(
     "GET",
     "https://api.covid19api.com/summary"
   ).then((data) => {
-    addDataToGlobalResultSpans(data.Global);
-    generateGlobalChartTotal(data.Global, data.Date);
-    // console.log(data.Date);
     const dataGlobalDate = data.Date;
+    addDataToGlobalResultSpans(data.Global);
+    generateGlobalChartTotal(data.Global, dataGlobalDate);
+    generateGlobalChartNew(data.Global, dataGlobalDate);
+    // console.log(data.Date);
+
     // console.log(data.Countries);
     const dataGlobalbyCountries = data.Countries;
   });
@@ -76,8 +83,43 @@ function generateGlobalChartTotal(data, date) {
   const options = chartOptions("Number Cases", "Type");
   const labels = ["Confirmed", "Deaths", "Recovered"];
   const dataset = new Dataset(
-    `Total GLobaly ${date}`,
+    `Total Global  ${date}`,
     [data.TotalConfirmed, data.TotalDeaths, data.TotalRecovered],
+    "bar",
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
+    0.5,
+    true,
+    true,
+    false,
+    0,
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
+    1,
+    "default",
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ]
+  );
+  const chartData = generateChartData(labels, [dataset]);
+  const chart = generateChart("bar", totalGlobalChart, chartData, options);
+}
+
+function generateGlobalChartNew(data, date) {
+  const totalGlobalChart = document.getElementById("new-global-stats");
+  const options = chartOptions("Number Cases", "Type");
+  const labels = ["Confirmed", "Deaths", "Recovered"];
+  const dataset = new Dataset(
+    `New Global  ${date}`,
+    [data.NewConfirmed, data.NewDeaths, data.NewRecovered],
     "bar",
     [
       "rgba(255, 206, 86, 0.2)",
