@@ -25,8 +25,52 @@ function deActivateSideBarItems() {
   forEachInNodeListClass(sidebarItems, removeClassFromElement, "active-item");
 }
 
+function handleClickSideBarBtnItems(elemet) {
+  const prevSelectedBtn = document.querySelector(".selected-btn");
+  removeClassFromElement(prevSelectedBtn, "selected-btn");
+  addClassToElement(element, ".selected-btn");
+}
+
 function forEachInNodeListClass(list, operationFunction, className) {
   list.forEach((e, i) => {
     operationFunction(e, className);
   });
+}
+
+function handleFilterCountryGlobalChart(element) {
+  const filterCountryValue = element.value;
+  console.log(filterCountryValue);
+  const filterCountryName = element.selectedOptions[0].innerText;
+  // const chart = document.getElementById("total-global-stats");
+  // console.log(chart.getContext("2d"));
+
+  getSummuryDataFilter(filterCountryName);
+}
+
+function filterDataGlobalTotalByCountry(data, filterCountryName) {
+  const countries = data.Countries;
+  const result = countries.filter(function (item) {
+    return item.Country === filterCountryName;
+  });
+
+  return result;
+}
+
+function getSummuryDataFilter(filterCountryName) {
+  const summaryWorld = getDataCallApi(
+    "GET",
+    "https://api.covid19api.com/summary"
+  ).then((data) => {
+    const filteredData = filterDataGlobalTotalByCountry(
+      data,
+      filterCountryName
+    );
+
+    updateGlobalTotalChart(filteredData);
+  });
+}
+
+function updateGlobalTotalChart(filteredData) {
+  const chartCanvas = document.getElementById("total-global-stats");
+  console.log(chartCanvas.getContext("2d"));
 }

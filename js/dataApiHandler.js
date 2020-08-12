@@ -13,6 +13,7 @@ function getCountriesData() {
 
 function addCountriesToSelectionBox(data) {
   const selectFiltersCountry = document.querySelectorAll(".country-selector");
+  data = sortAplhabeticallyCountries(data);
   selectFiltersCountry.forEach((e, i) => {
     data.map((item, i) => {
       const newOption = document
@@ -31,7 +32,7 @@ function getGlobalTotalData() {
     "https://api.covid19api.com/summary"
   ).then((data) => {
     addDataToGlobalResultSpans(data.Global);
-    generateGlobalChartTotal(data.Global);
+    generateGlobalChartTotal(data.Global, data.Date);
     // console.log(data.Date);
     const dataGlobalDate = data.Date;
     // console.log(data.Countries);
@@ -70,34 +71,43 @@ function addDataToGlobalResultSpans(data) {
   changeTextToElement(totalRecoveredSpan, totalRecovered);
 }
 
-function generateGlobalChartTotal(data) {
+function generateGlobalChartTotal(data, date) {
   const totalGlobalChart = document.getElementById("total-global-stats");
   const options = chartOptions("Number Cases", "Type");
   const labels = ["Confirmed", "Deaths", "Recovered"];
   const dataset1 = new Dataset(
-    "Total GLobaly",
+    `Total GLobaly ${date}`,
     [data.TotalConfirmed, data.TotalDeaths, data.TotalRecovered],
     "bar",
-    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"],
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
     0.5,
     true,
     true,
     false,
     0,
-    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"],
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ],
     1,
     "default",
-    ["rgba(251, 255, 0)", "#6C1D82", "#3ca014"]
+    [
+      "rgba(255, 206, 86, 0.2)",
+      "rgba(75, 192, 192, 0.2)",
+      "rgba(153, 102, 255, 0.2)",
+    ]
   );
-
-  // data.TotalDeaths,
-  // console.log(dataset);
   const chartData = generateChartData(labels, [dataset1]);
   const chart = generateChart("bar", totalGlobalChart, chartData, options);
 }
 
 // -----------Country Global Example----//
-//     Country: "Afghanistan"
+// Country: "Afghanistan"
 // CountryCode: "AF"
 // Date: "2020-08-11T08:28:11Z"
 // NewConfirmed: 108

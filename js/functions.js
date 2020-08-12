@@ -26,6 +26,10 @@ function numberWithCommas(number) {
   return number.toLocaleString();
 }
 
+function sortAplhabeticallyCountries(data) {
+  return data.sort((a, b) => a.Country.localeCompare(b.Country));
+}
+
 // ----------Generating Chart Functions --------//
 function generateChart(type, canvas, data, options) {
   var chart = new Chart(canvas, {
@@ -97,6 +101,7 @@ function chartOptions(yAxisLabel, xAxisLabel) {
             display: false,
           },
           ticks: {
+            maxTicksLimit: 5,
             fontSize: 15,
             fontColor: "#0A0A23", // this here
             beginAtZero: false,

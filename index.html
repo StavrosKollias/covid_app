@@ -18,22 +18,40 @@
         <div class="sidebar-btn" onclick="handleClickSideBarBtn(this)">
           <div class="btn-item"></div>
         </div>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item selected-btn"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-pencil"></i>
         </button>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-area-chart" aria-hidden="true"></i>
         </button>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-line-chart" aria-hidden="true"></i>
         </button>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-save"></i>
         </button>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </button>
-        <button class="side-bar-item">
+        <button
+          class="side-bar-item"
+          onclick="handleClickSideBarBtnItems(this)"
+        >
           <i class="fa fa-line-chart" aria-hidden="true"></i>
         </button>
       </div>
@@ -86,24 +104,23 @@
           <div class="charts-controls">
             <div class="input-filter-container">
               <label for="by-country">*Select Country</label>
-              <select name="by-country" class="input-filter country-selector">
-              </select>
-            </div>
-            <div class="input-filter-container">
-              <label for="by-type">*Type</label>
-              <select name="by-type" class="input-filter type-selector">
-                <option value="0">New Cases</option>
-                <option value="1">Deaths</option>
+              <select
+                name="by-country"
+                class="input-filter country-selector"
+                onchange="handleFilterCountryGlobalChart(this)"
+              >
               </select>
             </div>
           </div>
           <div class="chart-item-charts">
             <div class="canvas-container">
-              <canvas id="total-global-stats"></canvas>
+              <canvas id="total-global-stats">
+                Your browser does not support the canvas element.</canvas
+              >
             </div>
 
             <div class="canvas-container">
-              <canvas id="new-global-stats"></canvas>
+              <canvas id="new-global-stats"> </canvas>
             </div>
           </div>
         </div>
