@@ -69,12 +69,12 @@ function addDataToGlobalResultSpans(data) {
 
 function generateGlobalChartTotal(data, date) {
   const totalGlobalChart = document.getElementById("total-global-stats");
-  const options = chartOptions("Number Cases", "Type");
+  const options = chartOptions("Type", "Number Cases");
   const labels = ["Confirmed", "Deaths", "Recovered"];
   const dataset = new Dataset(
     `Total Global  ${date}`,
     [data.TotalConfirmed, data.TotalDeaths, data.TotalRecovered],
-    "bar",
+    "",
     [
       "rgba(255, 206, 86, 0.2)",
       "rgba(75, 192, 192, 0.2)",
@@ -83,7 +83,6 @@ function generateGlobalChartTotal(data, date) {
     0.5,
     true,
     true,
-    false,
     0,
     [
       "rgba(255, 206, 86, 0.2)",
@@ -99,17 +98,22 @@ function generateGlobalChartTotal(data, date) {
     ]
   );
   const chartData = generateChartData(labels, [dataset]);
-  const chart = generateChart("bar", totalGlobalChart, chartData, options);
+  const chart = generateChart(
+    "horizontalBar",
+    totalGlobalChart,
+    chartData,
+    options
+  );
 }
 
 function generateGlobalChartNew(data, date) {
   const totalGlobalChart = document.getElementById("new-global-stats");
-  const options = chartOptions("Number Cases", "Type");
+  const options = chartOptions("Type", "Number Cases");
   const labels = ["Confirmed", "Deaths", "Recovered"];
   const dataset = new Dataset(
     `New Global  ${date}`,
     [data.NewConfirmed, data.NewDeaths, data.NewRecovered],
-    "bar",
+    "",
     [
       "rgba(255, 206, 86, 0.2)",
       "rgba(75, 192, 192, 0.2)",
@@ -118,7 +122,6 @@ function generateGlobalChartNew(data, date) {
     0.5,
     true,
     true,
-    false,
     0,
     [
       "rgba(255, 206, 86, 0.2)",
@@ -134,7 +137,12 @@ function generateGlobalChartNew(data, date) {
     ]
   );
   const chartData = generateChartData(labels, [dataset]);
-  const chart = generateChart("bar", totalGlobalChart, chartData, options);
+  const chart = generateChart(
+    "horizontalBar",
+    totalGlobalChart,
+    chartData,
+    options
+  );
 }
 
 // -----------Country Global Example----//

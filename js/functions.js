@@ -30,15 +30,17 @@ function sortAplhabeticallyCountries(data) {
   return data.sort((a, b) => a.Country.localeCompare(b.Country));
 }
 
+function forEachInNodeListClass(list, operationFunction, className) {
+  list.forEach((e, i) => {
+    operationFunction(e, className);
+  });
+}
+
 Object.filter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
 
-function checkDateUndifined(date) {
+function checkValueUndifined(date) {
   return date === undefined;
-}
-
-function checkCountryNameUndefined(country) {
-  return country === undefined;
 }
 
 // ----------Generating Chart Functions --------//
@@ -73,9 +75,9 @@ function chartOptions(yAxisLabel, xAxisLabel) {
       intersect: false,
     },
     animation: {
-      animateScale: false,
-      animateRotate: false,
-      duration: 0,
+      animateScale: true,
+      animateRotate: true,
+      duration: 1200,
     },
     legend: {
       display: true,
@@ -103,6 +105,7 @@ function chartOptions(yAxisLabel, xAxisLabel) {
       ],
       yAxes: [
         {
+          stacked: true,
           scaleLabel: {
             display: true,
             labelString: yAxisLabel,
@@ -155,6 +158,7 @@ function updateChart(chart, data, labels) {
   chart.data.datasets[0] = data;
   chart.update();
 }
+
 // -----------------------------------------//
 // -----------Focused Functions-------------//
 //------------------------------------------//
@@ -203,8 +207,10 @@ function updateGlobalChart(filteredData, idCanvas, date) {
       ? (chartCanvas = instance.chart)
       : false;
   });
-  var country = checkCountryNameUndefined(filteredData.Country);
-  var newDate = checkDateUndifined(date);
+
+  returnDesirableChart(idCanvas);
+  var country = checkValueUndifined(filteredData.Country);
+  var newDate = checkValueUndifined(date);
   newDate ? (newDate = filteredData.Date) : newDate;
   country ? (country = "Global") : (country = filteredData.Country);
   const dataset = generateTypeDatasetGlobalCharts(
@@ -285,4 +291,14 @@ function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
     );
   }
   return dataset;
+}
+
+function returnDesirableChart(idCanvas) {
+  var chartCanvas;
+  Chart.helpers.each(Chart.instances, function (instance) {
+    instance.chart.canvas.id == idCanvas
+      ? (chartCanvas = instance.chart)
+      : false;
+  });
+  console.log(chartCanvas);
 }

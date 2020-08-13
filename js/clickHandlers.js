@@ -31,12 +31,6 @@ function handleClickSideBarBtnItems(elemet) {
   addClassToElement(element, ".selected-btn");
 }
 
-function forEachInNodeListClass(list, operationFunction, className) {
-  list.forEach((e, i) => {
-    operationFunction(e, className);
-  });
-}
-
 function handleFilterCountryGlobalChart(element) {
   const filterCountryValue = element.value;
   const filterCountryName = element.selectedOptions[0].innerText;

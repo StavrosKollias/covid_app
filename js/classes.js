@@ -7,7 +7,6 @@ class Dataset {
     fillOpacity,
     steppedLine,
     showLine,
-    fill,
     pointRadius,
     pointBorderColor,
     pointBorderWidth,
@@ -21,7 +20,6 @@ class Dataset {
     this.fillOpacity = fillOpacity;
     this.steppedLine = steppedLine;
     this.showLine = showLine;
-    this.fill = fill;
     this.pointRadius = pointRadius;
     this.pointBorderColor = pointBorderColor;
     this.pointBorderWidth = pointBorderWidth;
