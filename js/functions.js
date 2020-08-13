@@ -30,6 +30,13 @@ function sortAplhabeticallyCountries(data) {
   return data.sort((a, b) => a.Country.localeCompare(b.Country));
 }
 
+function formatDateFromData(date) {
+  const splitDateTime = date.split("T");
+  const splitDate = splitDateTime[0].split("-");
+  const newDate = `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`;
+  return newDate;
+}
+
 function forEachInNodeListClass(list, operationFunction, className) {
   list.forEach((e, i) => {
     operationFunction(e, className);
@@ -39,7 +46,7 @@ function forEachInNodeListClass(list, operationFunction, className) {
 Object.filter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
 
-function checkValueUndifined(date) {
+function checkValueUndIfined(date) {
   return date === undefined;
 }
 
@@ -172,9 +179,13 @@ function getSummuryDataFilterCountry(filterCountryName) {
       data,
       filterCountryName
     );
-
-    updateGlobalChart(filteredData, "total-global-stats");
-    updateGlobalChart(filteredData, "new-global-stats");
+    const isUndefined = checkValueUndIfined(filteredData);
+    if (!isUndefined) {
+      updateGlobalChart(filteredData, "total-global-stats");
+      updateGlobalChart(filteredData, "new-global-stats");
+    } else {
+      openErrorPopUp("No Data Found For this Country");
+    }
   });
 }
 
@@ -193,7 +204,8 @@ function getSummuryData() {
     "https://api.covid19api.com/summary"
   ).then((data) => {
     const filteredData = data.Global;
-    const date = data.Date;
+    const date = formatDateFromData(data.Date);
+
     updateGlobalChart(filteredData, "total-global-stats", date);
     updateGlobalChart(filteredData, "new-global-stats", date);
   });
@@ -209,9 +221,9 @@ function updateGlobalChart(filteredData, idCanvas, date) {
   });
 
   returnDesirableChart(idCanvas);
-  var country = checkValueUndifined(filteredData.Country);
-  var newDate = checkValueUndifined(date);
-  newDate ? (newDate = filteredData.Date) : newDate;
+  var country = checkValueUndIfined(filteredData.Country);
+  var newDate = checkValueUndIfined(date);
+  newDate ? (newDate = formatDateFromData(filteredData.Date)) : newDate;
   country ? (country = "Global") : (country = filteredData.Country);
   const dataset = generateTypeDatasetGlobalCharts(
     filteredData,
@@ -233,7 +245,7 @@ function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
         filteredData.TotalDeaths,
         filteredData.TotalRecovered,
       ],
-      "bar",
+      "",
       [
         "rgba(255, 206, 86, 0.2)",
         "rgba(75, 192, 192, 0.2)",
@@ -242,7 +254,6 @@ function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
       0.5,
       true,
       true,
-      false,
       0,
       [
         "rgba(255, 206, 86, 0.2)",
@@ -265,7 +276,7 @@ function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
         filteredData.NewDeaths,
         filteredData.NewRecovered,
       ],
-      "bar",
+      "",
       [
         "rgba(255, 206, 86, 0.2)",
         "rgba(75, 192, 192, 0.2)",
@@ -274,7 +285,6 @@ function generateTypeDatasetGlobalCharts(filteredData, type, country, newDate) {
       0.5,
       true,
       true,
-      false,
       0,
       [
         "rgba(255, 206, 86, 0.2)",
@@ -301,4 +311,13 @@ function returnDesirableChart(idCanvas) {
       : false;
   });
   console.log(chartCanvas);
+}
+
+function openErrorPopUp(txt) {
+  const errorPopup = document.querySelector(".error-popup");
+  const errorMessage = errorPopup.children[1];
+  changeTextToElement(errorMessage, txt);
+  const panelContainer = document.querySelector(".panel-container");
+  addClassToElement(errorPopup, "active-error-popup");
+  addClassToElement(panelContainer, "blur-item");
 }

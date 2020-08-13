@@ -36,7 +36,7 @@ function getGlobalTotalDataInitial() {
     "GET",
     "https://api.covid19api.com/summary"
   ).then((data) => {
-    const dataGlobalDate = data.Date;
+    const dataGlobalDate = formatDateFromData(data.Date);
     addDataToGlobalResultSpans(data.Global);
     generateGlobalChartTotal(data.Global, dataGlobalDate);
     generateGlobalChartNew(data.Global, dataGlobalDate);

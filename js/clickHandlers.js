@@ -40,3 +40,10 @@ function handleFilterCountryGlobalChart(element) {
     ? getSummuryData()
     : getSummuryDataFilterCountry(filterCountryName);
 }
+
+function handleCloseErrorPopup(element) {
+  const popup = element.parentElement.parentElement;
+  removeClassFromElement(popup, "active-error-popup");
+  const bluredItem = document.querySelector(".blur-item");
+  removeClassFromElement(bluredItem, "blur-item");
+}

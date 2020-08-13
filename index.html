@@ -13,6 +13,15 @@
     <title>Covid App</title>
   </head>
   <body>
+    <div class="error-popup">
+      <h3>Error</h3>
+      <p class="error-message" id="error-message">This is an error</p>
+      <div class="error-btns-container">
+        <button class="red-btn" onclick="handleCloseErrorPopup(this)">
+          Close
+        </button>
+      </div>
+    </div>
     <div class="panel-container">
       <div class="side-bar">
         <div class="sidebar-btn" onclick="handleClickSideBarBtn(this)">
