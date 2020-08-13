@@ -145,6 +145,15 @@ function generateGlobalChartNew(data, date) {
   );
 }
 
+function getDataByCountryInitital() {
+  const summaryWorld = getDataCallApi(
+    "GET",
+    "https://api.covid19api.com/summary"
+  ).then((data) => {
+    // https://api.covid19api.com/live/country/south-africa/status/confirmed
+  });
+}
+
 // -----------Country Global Example----//
 // Country: "Afghanistan"
 // CountryCode: "AF"
