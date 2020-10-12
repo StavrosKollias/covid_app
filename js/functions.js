@@ -1,28 +1,11 @@
-function addClassToElement(element, className) {
-  element.classList.add(className);
-}
 
-function removeClassFromElement(element, className) {
-  element.classList.remove(className);
-}
 
-function getClassListLengthFromElement(element) {
-  return element.classList.length;
-}
-
-function addChildToElement(element, child) {
-  element.appendChild(child);
-}
-
-function removeChildFromElement(element, child) {
-  element.removeChild(child);
-}
 
 function changeTextToElement(element, txt) {
   element.innerText = txt;
 }
 
-function numberWithCommas(number) {
+function numbericStringConversion(number) {
   return number.toLocaleString();
 }
 
@@ -37,11 +20,18 @@ function formatDateFromData(date) {
   return newDate;
 }
 
-function forEachInNodeListClass(list, operationFunction, className) {
+function forEachInNodeListClassRemoveClass(list, className) {
   list.forEach((e, i) => {
-    operationFunction(e, className);
+    e.classList.remove(className);
   });
 }
+
+function forEachInNodeListClassAddClass(list, className) {
+  list.forEach((e, i) => {
+    e.classList.add(className);
+  });
+}
+
 
 Object.filter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
@@ -170,13 +160,12 @@ function updateChart(chart, data, labels) {
 // -----------Focused Functions-------------//
 //------------------------------------------//
 
-function getSummuryDataFilterCountry(filterCountryName) {
-  const summaryWorld = getDataCallApi(
-    "GET",
+async function getSummuryDataFilterCountry(filterCountryName) {
+  const summaryWorld = await getDataCallApi(
     "https://api.covid19api.com/summary"
-  ).then((data) => {
+  );
     const filteredData = filterDataGlobalTotalByCountry(
-      data,
+      summaryWorld.Countries,
       filterCountryName
     );
     const isUndefined = checkValueUndIfined(filteredData);
@@ -186,12 +175,10 @@ function getSummuryDataFilterCountry(filterCountryName) {
     } else {
       openErrorPopUp("No Data Found For this Country");
     }
-  });
 }
 
 function filterDataGlobalTotalByCountry(data, filterCountryName) {
-  const countries = data.Countries;
-  const result = countries.filter(function (item) {
+  const result = data.filter(function (item) {
     return item.Country === filterCountryName;
   });
 
@@ -318,6 +305,6 @@ function openErrorPopUp(txt) {
   const errorMessage = errorPopup.children[1];
   changeTextToElement(errorMessage, txt);
   const panelContainer = document.querySelector(".panel-container");
-  addClassToElement(errorPopup, "active-error-popup");
-  addClassToElement(panelContainer, "blur-item");
+  errorPopup.classList.add("active-error-popup");
+  panelContainer.classList.add("blur-item");
 }

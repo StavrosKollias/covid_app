@@ -1,34 +1,36 @@
 function handleClickSideBarBtn(element) {
-  const elementClassListChild = getClassListLengthFromElement(
-    element.children[0]
-  );
+  const elementClassListChild = element.children[0].classList.length
+
   const sideBar = element.parentElement;
 
   if (elementClassListChild < 2) {
-    addClassToElement(sideBar, "active-side-bar");
-    addClassToElement(element.children[0], "btn-item-active");
+    element.children[0].classList.add("btn-item-active");
+    sideBar.classList.add("active-side-bar");
     activateSideBarItems();
   } else {
-    removeClassFromElement(sideBar, "active-side-bar");
-    removeClassFromElement(element.children[0], "btn-item-active");
+    sideBar.classList.remove("active-side-bar");
+    element.children[0].classList.remove("btn-item-active");
     deActivateSideBarItems();
   }
 }
 
 function activateSideBarItems() {
   const sidebarItems = document.querySelectorAll(".side-bar-item");
-  forEachInNodeListClass(sidebarItems, addClassToElement, "active-item");
+  forEachInNodeListClassAddClass(sidebarItems, "active-item");
+
+
 }
 
 function deActivateSideBarItems() {
   const sidebarItems = document.querySelectorAll(".side-bar-item");
-  forEachInNodeListClass(sidebarItems, removeClassFromElement, "active-item");
+  forEachInNodeListClassRemoveClass(sidebarItems, "active-item");
+
 }
 
-function handleClickSideBarBtnItems(elemet) {
+function handleSideBarBtnItemClick(elemet) {
   const prevSelectedBtn = document.querySelector(".selected-btn");
-  removeClassFromElement(prevSelectedBtn, "selected-btn");
-  addClassToElement(element, ".selected-btn");
+  prevSelectedBtn.classList.remove("selected-btn");
+  element.classList.add("selected-btn")
 }
 
 function handleFilterCountryGlobalChart(element) {
@@ -41,9 +43,19 @@ function handleFilterCountryGlobalChart(element) {
     : getSummuryDataFilterCountry(filterCountryName);
 }
 
+
+function handleFilterLineChartCountryChart(element){
+  const filterCountryValue = element.value;
+  const filterCountryName = element.selectedOptions[0].innerText;
+  getDataByCountryInitital(filterCountryName); 
+}
+
+
+
+
 function handleCloseErrorPopup(element) {
   const popup = element.parentElement.parentElement;
-  removeClassFromElement(popup, "active-error-popup");
+  popup.classList.remove("active-error-popup")
   const bluredItem = document.querySelector(".blur-item");
-  removeClassFromElement(bluredItem, "blur-item");
+  bluredItem.classList.remove("blur-item");
 }

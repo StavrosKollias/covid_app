@@ -1,11 +1,12 @@
 window.addEventListener("load", (e) => {
   getCountriesData();
   getGlobalTotalDataInitial();
+  getDataByCountryInitital();
+  getDataByCountryInitital("uk");
 });
 
 function getCountriesData() {
   const countriesApi = getDataCallApi(
-    "GET",
     "https://api.covid19api.com/countries"
   ).then((data) => addCountriesToSelectionBox(data));
 }
@@ -19,29 +20,27 @@ function addCountriesToSelectionBox(data) {
       .children[0].cloneNode(true);
     changeTextToElement(newOption, "Global");
     newOption.value = 0;
-    addChildToElement(e, newOption);
+    e.appendChild(newOption);
     data.map((item, i) => {
       const newOption = document
         .querySelectorAll(".type-selector")[0]
         .children[0].cloneNode(true);
       changeTextToElement(newOption, item.Country);
       newOption.value = i + 1;
-      addChildToElement(e, newOption);
+     e.appendChild(newOption);
     });
+    if(e.id=="country-filter-line") e.removeChild(e.children[0]);
   });
+
+  generateSelectComponents();
 }
 
-function getGlobalTotalDataInitial() {
-  const summaryWorld = getDataCallApi(
-    "GET",
-    "https://api.covid19api.com/summary"
-  ).then((data) => {
-    const dataGlobalDate = formatDateFromData(data.Date);
-    addDataToGlobalResultSpans(data.Global);
-    generateGlobalChartTotal(data.Global, dataGlobalDate);
-    generateGlobalChartNew(data.Global, dataGlobalDate);
-    // const dataGlobalbyCountries = data.Countries;
-  });
+async function getGlobalTotalDataInitial() {
+  const summaryWorld = await getDataCallApi("https://api.covid19api.com/summary");
+  const dataGlobalDate = formatDateFromData(summaryWorld.Date);
+   addDataToGlobalResultSpans(summaryWorld.Global);
+   generateGlobalChartTotal(summaryWorld.Global, dataGlobalDate);
+   generateGlobalChartNew(summaryWorld.Global, dataGlobalDate);
 }
 
 function addDataToGlobalResultSpans(data) {
@@ -52,12 +51,12 @@ function addDataToGlobalResultSpans(data) {
   const totalDeathsSpan = document.getElementById("total-deaths-global");
   const totalRecoveredSpan = document.getElementById("total-recovered-global");
 
-  const newConfirmed = numberWithCommas(data.NewConfirmed);
-  const newDeaths = numberWithCommas(data.NewDeaths);
-  const newRecovered = numberWithCommas(data.NewRecovered);
-  const totalConfirmed = numberWithCommas(data.TotalConfirmed);
-  const totalDeaths = numberWithCommas(data.TotalDeaths);
-  const totalRecovered = numberWithCommas(data.TotalRecovered);
+  const newConfirmed = numbericStringConversion(data.NewConfirmed);
+  const newDeaths = numbericStringConversion(data.NewDeaths);
+  const newRecovered = numbericStringConversion(data.NewRecovered);
+  const totalConfirmed = numbericStringConversion(data.TotalConfirmed);
+  const totalDeaths = numbericStringConversion(data.TotalDeaths);
+  const totalRecovered = numbericStringConversion(data.TotalRecovered);
 
   changeTextToElement(newConfrimedSpan, newConfirmed);
   changeTextToElement(newDeathsSpan, newDeaths);
@@ -145,13 +144,11 @@ function generateGlobalChartNew(data, date) {
   );
 }
 
-function getDataByCountryInitital() {
-  const summaryWorld = getDataCallApi(
-    "GET",
-    "https://api.covid19api.com/summary"
-  ).then((data) => {
-    // https://api.covid19api.com/live/country/south-africa/status/confirmed
-  });
+ async function getDataByCountryInitital(country) {
+  const summuryCountry = await getDataCallApi(
+    `https://api.covid19api.com/live/country/${country}/status/confirmed`//https://api.covid19api.com/summary"
+  );
+  console.log(summuryCountry);
 }
 
 // -----------Country Global Example----//

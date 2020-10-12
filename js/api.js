@@ -1,16 +1,11 @@
-async function getDataCallApi(type, url) {
+async function getDataCallApi(url) {
   let result;
-
-  try {
-    result = await $.ajax({
-      url: url,
-      type: type,
-      success: function (data) {
-        var data1 = data;
-      },
-    });
-    return result;
-  } catch (error) {
-    console.error(error);
+    result = await  fetch(url);
+    if (result.ok) {
+      let json = await result.json();
+      return json;
+  } else {
+      alert("HTTP Request Error: " + result.status);
+      return {};
   }
 }

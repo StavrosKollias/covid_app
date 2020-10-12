@@ -1,0 +1,172 @@
+
+html {
+  font-size: 16px;
+}
+  .ui-select-container {
+    width: 100%;
+  }
+  .ui-select-container [data-role="ui-select-custom"] {
+    display: none;
+  }
+  .ui-select-container .select-component {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    border: none;
+    background-color: #303031;
+    color: #ffffff;
+    width: 100%;
+    height: 3rem;
+    padding: 1rem;
+    min-width: 2rem;
+    transition: all 0.45s ease-in-out;
+  }
+  .ui-select-container .select-component:hover {
+    cursor: pointer;
+  }
+  .ui-select-container .select-component:focus,
+  .ui-select-container .select-component:focus-within {
+    outline: none;
+    box-shadow: 0 0 0.2rem #bdbbbb;
+  }
+  .ui-select-container .select-component:focus .select-text-display,
+  .ui-select-container .select-component:focus-within .select-text-display,
+  .ui-select-container .select-component:focus .fa-angle-down,
+  .ui-select-container .select-component:focus-within .fa-angle-down,
+  .ui-select-container .select-component:focus .fa-angle-up,
+  .ui-select-container .select-component:focus-within .fa-angle-up {
+    font-weight: bold;
+  }
+  .ui-select-container .select-component .fa-angle-down,
+  .ui-select-container .select-component .fa-angle-up {
+    position: absolute;
+    top: unset;
+    bottom: unset;
+    right: 1rem;
+    left: unset;
+    font-size: 1rem;
+  }
+  .ui-select-container .select-component .select-text-display {
+    font-size: 1rem;
+  }
+  .ui-select-container .select-component .select-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    width: calc(100% - 2 * 1rem);
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 0.2rem #bdbbbb;
+    height: calc(100vh - 2 * 1rem);
+    overflow-y: auto;
+    z-index: 10;
+  }
+  @media only screen and (min-width: 900px) {
+    .ui-select-container .select-component .select-menu {
+      position: absolute;
+      top: 100%;
+      bottom: unset;
+      right: 0;
+      left: unset;
+      max-height: calc(20rem - 2 * 1rem);
+    }
+  }
+  .ui-select-container .select-component .select-menu.active-select-menu {
+    display: block;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    width: calc(100% - 2 * 0.2rem);
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #bdbbbb;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item.error {
+    border-bottom: 1px solid #f80c0c;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item.error:focus-within {
+    border-bottom: 1px solid #f80c0c;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item:focus-within {
+    color: #303031;
+    border-bottom: 1px solid #303031;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item .input-search {
+    padding: 1rem;
+    font-size: 1rem;
+    color: #bdbbbb;
+    border: none;
+    width: 100%;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item .input-search:focus {
+    outline: none;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item .fa-search {
+    font-size: 1rem;
+    color: #bdbbbb;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item .error-search {
+    position: absolute;
+    top: unset;
+    bottom: -6rem;
+    width: 100%;
+    font-size: 0.8rem;
+    right: 50%;
+    left: 0;
+    opacity: 0;
+    color: #f80c0c;
+    transform: translateY(0rem);
+    transition: all 0.45s ease-in-out;
+  }
+  .ui-select-container .select-component .select-menu .search-menu-item .error-search.error {
+    opacity: 1;
+    transform: translateY(-3rem);
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item {
+    width: calc(100% - 2 * 0.2rem);
+    padding: 0.2rem;
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item .select-menu-item-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    color: #bdbbbb;
+    background-color: #00000000;
+    box-shadow: 0 0 0.2rem #bdbbbb;
+    transition: all 0.45s ease-in-out;
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item .select-menu-item-button:focus {
+    outline: none;
+    box-shadow: 0 0 0.2rem #bdbbbb;
+    background-color: #79fdd170;
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item .select-menu-item-button:hover {
+    cursor: pointer;
+    background-color: #79fdd170;
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item .select-menu-item-button.active-item {
+    background-color:#303031;
+    color: #ffffff;
+  }
+  .ui-select-container .select-component .select-menu .select-menu-item .select-menu-item-button.active-item:focus {
+    outline: none;
+    box-shadow: 0 0 0.2rem #bdbbbb;
+    background-color: #79fdd170;
+  }
+  

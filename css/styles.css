@@ -26,7 +26,7 @@ legend {
 
 label,
 span {
-  font-size: 0.8em;
+  font-size: 1rem;
 }
 
 input,
@@ -144,6 +144,12 @@ button:focus {
   opacity: 0;
   transition: all 0.35s ease-in-out;
 }
+@media only screen and (max-width: 800px){
+  .error-popup {
+    width: 80%;
+  }
+}
+
 
 .error-message {
   color: var(--red);
@@ -260,7 +266,6 @@ button:focus {
 }
 
 .side-bar-item {
-  flex: 1.2;
   font-size: 1em;
   visibility: hidden;
   opacity: 0;
@@ -315,7 +320,10 @@ button:focus {
 }
 
 .input-filter-container {
+  width: 30%;
   display: inline-block;
+  min-width: 15rem;
+  max-width: 20rem;
 }
 
 .results-container {
