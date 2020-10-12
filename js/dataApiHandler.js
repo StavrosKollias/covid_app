@@ -1,8 +1,7 @@
 window.addEventListener("load", (e) => {
   getCountriesData();
   getGlobalTotalDataInitial();
-  getDataByCountryInitital();
-  getDataByCountryInitital("uk");
+  getDataByCountryInitital("GB");
 });
 
 function getCountriesData() {
@@ -25,7 +24,9 @@ function addCountriesToSelectionBox(data) {
       const newOption = document
         .querySelectorAll(".type-selector")[0]
         .children[0].cloneNode(true);
+        
       changeTextToElement(newOption, item.Country);
+      newOption.dataset.iso= item.ISO2;
       newOption.value = i + 1;
      e.appendChild(newOption);
     });

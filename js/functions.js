@@ -187,15 +187,14 @@ function filterDataGlobalTotalByCountry(data, filterCountryName) {
 
 function getSummuryData() {
   const summaryWorld = getDataCallApi(
-    "GET",
     "https://api.covid19api.com/summary"
-  ).then((data) => {
-    const filteredData = data.Global;
-    const date = formatDateFromData(data.Date);
+  )
+
+    const filteredData = summaryWorld.Global;
+    const date = formatDateFromData(summaryWorld.Date);
 
     updateGlobalChart(filteredData, "total-global-stats", date);
     updateGlobalChart(filteredData, "new-global-stats", date);
-  });
 }
 
 function updateGlobalChart(filteredData, idCanvas, date) {

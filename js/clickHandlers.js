@@ -47,7 +47,8 @@ function handleFilterCountryGlobalChart(element) {
 function handleFilterLineChartCountryChart(element){
   const filterCountryValue = element.value;
   const filterCountryName = element.selectedOptions[0].innerText;
-  getDataByCountryInitital(filterCountryName); 
+  const isoCountry= element.selectedOptions[0].dataset.iso;
+  getDataByCountryInitital(isoCountry); 
 }
 
 
